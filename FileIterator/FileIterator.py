@@ -2,7 +2,7 @@
 import sys
 import os
 import time
-import xml.etree.ElementTree as ET 
+import json
 from PyQt5.QtWidgets import QApplication, QWidget, QStatusBar, QVBoxLayout, \
                            QPushButton, QFileDialog, QProgressBar
 
@@ -19,17 +19,23 @@ class App(QWidget):
         self.initUI()
         
     def initUI(self):
+        with open('config.json') as json_data_file:
+            data = json.load(json_data_file)
+
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
         verticalLayout = QVBoxLayout()
         self.setLayout(verticalLayout)
 
-        self.btnSelectFile = QPushButton('Select a file.')
+        button1Label = data['button1']
+        button2Label = data['button2']
+
+        self.btnSelectFile = QPushButton(button1Label)
         self.btnSelectFile.clicked.connect(self.OpenFile)
         verticalLayout.addWidget(self.btnSelectFile)
 
-        self.btnShowDirectory = QPushButton('Show Directory.')
+        self.btnShowDirectory = QPushButton(button2Label)
         self.btnShowDirectory.clicked.connect(self.IterateFiles)
         verticalLayout.addWidget(self.btnShowDirectory)
 
