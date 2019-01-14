@@ -19,7 +19,7 @@ class App(QWidget):
         self.initUI()
         
     def initUI(self):
-        #A change
+        #A change  another change
         with open('config.json') as json_data_file:
             data = json.load(json_data_file)
 
